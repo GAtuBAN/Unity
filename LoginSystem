@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
+
+public class LoginSystem : MonoBehaviour
+{
+    public TMP_InputField usernameField;
+    public TMP_InputField passwordField;
+    public Button loginButton;
+    public Button registerButton;
+
+    private string savedUsernameKey = "Username";
+    private string savedPasswordKey = "Password";
+
+    private void Start()
+    {
+        loginButton.onClick.AddListener(Login);
+        registerButton.onClick.AddListener(Register);
+    }
+
+    private void Login()
+    {
+        string username = usernameField.text;
+        string password = passwordField.text;
+
+        string savedUsername = PlayerPrefs.GetString(savedUsernameKey);
+        string savedPassword = PlayerPrefs.GetString(savedPasswordKey);
+
+        if (username == savedUsername && password == savedPassword)
+        {
+            Debug.Log("Login successful!");
+        
+        }
+        else
+        {
+            Debug.Log("invalid user");
+     
+        }
+    }
+
+    private void Register()//default değer atamasını önlemek için
+    {
+        string username = usernameField.text;
+        string password = passwordField.text;
+
+        PlayerPrefs.SetString(savedUsernameKey, username);
+        PlayerPrefs.SetString(savedPasswordKey, password);
+        PlayerPrefs.Save();
+
+        Debug.Log("Registration ok");
+  
+    }
+
+}
